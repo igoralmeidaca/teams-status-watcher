@@ -1,0 +1,9 @@
+---
+services:
+  teams-watcher:
+    build: .
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - "${LOGS_PATH}:/logs:ro"
