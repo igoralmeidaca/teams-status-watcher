@@ -25,8 +25,6 @@ var (
 )
 
 func main() {
-	var lastStatus string
-
 	// Initialize MQTT client
 	opts := mqtt.NewClientOptions().AddBroker(mqttBroker)
 	opts.SetClientID("teams-status-watcher")
@@ -40,8 +38,9 @@ func main() {
 	}
 	defer mqttClient.Disconnect(250)
 
+	var lastStatus string
 	for {
-		latestLogFile, err := getLatestLogFile(logsPath)
+		latestLogFile, err := getLatestLogFile("/logs")
 		if err != nil {
 			fmt.Println("Error finding log file:", err)
 			time.Sleep(5 * time.Second)
